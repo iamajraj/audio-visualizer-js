@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Audio Visualizer</title>
+    <style>
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      canvas {
+        border: 1px solid black;
+        display: block;
+        max-width: 100%;
+      }
+      .controls {
+        margin-top: 20px;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="visualizer" width="800" height="400"></canvas>
+    <div class="controls">
+      <button id="playButton">Play</button>
+      <h2>Control Volume</h2>
+      <input type="range" class="volume-ctr" min="0" max="100" value="20" />
+    </div>
+    <script src="script.js" defer></script>
+  </body>
+</html>
