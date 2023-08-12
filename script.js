@@ -4,7 +4,6 @@ const volumeCtr = document.querySelector('.volume-ctr');
 const dataArray = new Uint8Array(256);
 let audioElement;
 
-const barObjects = [];
 let selectedAudio = '';
 
 async function initializeAudio(audioSrc) {
@@ -63,7 +62,8 @@ async function initializeAudio(audioSrc) {
     const frequency =
       dataArray.reduce((total, value) => total + value, 0) / dataArray.length;
     ctx.fillStyle = 'black';
-    ctx.fillText(`Frequency: ${frequency.toFixed(2)}`, canvas.width - 150, 20);
+    ctx.font = '12px Arial';
+    ctx.fillText(`Frequency: ${frequency.toFixed(2)}`, canvas.width - 100, 20);
     requestAnimationFrame(draw);
   }
   draw();

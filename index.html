@@ -1,66 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Audio Visualizer</title>
-    <style>
-      body {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-      }
-      #editor-container {
-        border: 1px solid #ccc;
-        background-color: #fff;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-      }
-      #visualizer {
-        width: 800px;
-        height: 400px;
-        border: 1px solid #ccc;
-      }
-      .controls {
-        margin-top: 20px;
-        text-align: center;
-      }
-      button {
-        padding: 10px 20px;
-        margin: 0 10px;
-        font-size: 14px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        background-color: #007bff;
-        color: #fff;
-      }
-      button:disabled {
-        background-color: rgb(184, 184, 184);
-      }
-      input[type='file'] {
-        display: none;
-      }
-      .file-label {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #007bff;
-        color: #fff;
-        border-radius: 5px;
-        cursor: pointer;
-      }
-      #selected-audio-name {
-        margin-top: 10px;
-        font-size: 14px;
-        font-weight: bold;
-      }
-    </style>
+    <title>Audio Wave Visualizer</title>
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div id="editor-container">
+    <h2>
+      A simple audio wave visualizer by
+      <a target="_blank" href="https://github.com/iamajraj/">github/iamajraj</a>
+    </h2>
+    <div id="container">
       <canvas id="visualizer"></canvas>
       <div class="controls">
         <label class="file-label" for="audioInput">Upload Audio</label>
