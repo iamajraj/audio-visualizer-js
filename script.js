@@ -29,37 +29,43 @@ async function initializeAudio(audioSrc) {
   volumeCtr.addEventListener('input', (ev) => {
     audioElement.volume = ev.target.value / 100;
   });
-  const barHeights = Array(dataArray.length).fill(0);
 
   function draw() {
     analyser.getByteFrequencyData(dataArray);
 
-    ctx.fillStyle = 'black';
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    // Clear the canvas
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     const zeros = dataArray.filter((v) => v === 0);
     const barWidth = canvas.width / (dataArray.length - zeros.length);
 
+    ctx.font = '14px Arial';
+    ctx.fillStyle = 'white';
+
     for (let i = 0; i < dataArray.length; i++) {
       const barHeight = dataArray[i];
-      const hue = (240 * i) / dataArray.length; // Generate hue value
-      const color = `hsl(${hue}, 100%, ${barHeight / 3}%)`;
+      const hue = (240 * i) / dataArray.length;
+      const saturation = 100;
+      const lightness = 60 + barHeight / 50; // Adjust lightness based on bar height
+      const color = `hsl(${hue}, ${saturation}%, ${lightness}%)`;
       ctx.fillStyle = color;
 
-      barHeights[i] = Math.max(barHeights[i] - 0.5, barHeight);
-
-      // Drawing the bar
+      // Draw the bar
       ctx.fillRect(
         i * barWidth,
-        canvas.height - barHeights[i],
+        canvas.height - barHeight,
         barWidth - 2,
-        barHeights[i]
+        barHeight
       );
     }
 
+    // Display frequency in the top right corner
+    const frequency =
+      dataArray.reduce((total, value) => total + value, 0) / dataArray.length;
+    ctx.fillStyle = 'black';
+    ctx.fillText(`Frequency: ${frequency.toFixed(2)}`, canvas.width - 150, 20);
     requestAnimationFrame(draw);
   }
-
   draw();
 }
 
