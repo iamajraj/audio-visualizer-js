@@ -4,6 +4,7 @@ const volumeCtr = document.querySelector('.volume-ctr');
 const dataArray = new Uint8Array(256);
 let audioElement;
 
+const barObjects = [];
 let selectedAudio = '';
 
 async function initializeAudio(audioSrc) {
@@ -28,25 +29,31 @@ async function initializeAudio(audioSrc) {
   volumeCtr.addEventListener('input', (ev) => {
     audioElement.volume = ev.target.value / 100;
   });
+  const barHeights = Array(dataArray.length).fill(0);
 
   function draw() {
     analyser.getByteFrequencyData(dataArray);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = 'black';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     const zeros = dataArray.filter((v) => v === 0);
     const barWidth = canvas.width / (dataArray.length - zeros.length);
 
     for (let i = 0; i < dataArray.length; i++) {
       const barHeight = dataArray[i];
-      const r = barHeight + 25 * (i / dataArray.length);
-      const g = 250 * (i / dataArray.length);
-      const b = 50;
-      ctx.fillStyle = `rgb(${r},${g},${b})`;
+      const hue = (240 * i) / dataArray.length; // Generate hue value
+      const color = `hsl(${hue}, 100%, ${barHeight / 3}%)`;
+      ctx.fillStyle = color;
+
+      barHeights[i] = Math.max(barHeights[i] - 0.5, barHeight);
+
+      // Drawing the bar
       ctx.fillRect(
         i * barWidth,
-        canvas.height - barHeight,
-        barWidth,
-        barHeight
+        canvas.height - barHeights[i],
+        barWidth - 2,
+        barHeights[i]
       );
     }
 
